@@ -1,0 +1,27 @@
+.auth {
+  margin: 5% 30%;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgb(211, 210, 190);
+}
+.auth h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  text-decoration: underline;
+}
+.lab {
+  margin: 5px 10%;
+  font-size: larger;
+}
+
+.btn {
+  margin: 20px 43%;
+}
+.block {
+  text-align: center;
+  display: block;
+  width: 80%;
+  margin-left: 12%;
+  height: 40px;
+  margin-bottom: 5px;
+}
