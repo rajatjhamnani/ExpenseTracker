@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classes from "./UpdateProfile.module.css";
 import { Link, json, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Global/AuthContext";
+import ProfileDetails from "./Profile";
 const UpdateProfile = (props) => {
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
@@ -16,6 +17,39 @@ const UpdateProfile = (props) => {
     console.log(e.target.value);
     setPhotoUrl(e.target.value);
   };
+
+  useEffect(() => {
+    fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBDWVbnQ6118boUJYGBZNlr-QiJ2E9fS5o",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idToken: authCtx.token,
+        }),
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          console.log("worked successfully 1s");
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Authentication failed";
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        console.log(data.users);
+        authCtx.data(data.users);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  }, []);
   const submitHandler = (e) => {
     e.preventDefault();
     const data = {
@@ -79,6 +113,7 @@ const UpdateProfile = (props) => {
       <div className={classes.btn}>
         <button type="submit">Update</button>
       </div>
+      <ProfileDetails data={authCtx.profileData} />
     </form>
   );
 };

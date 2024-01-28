@@ -3,6 +3,7 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
   const [token, setToken] = useState();
+  const [retrivedData, setRetrivedData] = useState();
   const userIsLoggedIn = !!token;
 
   const loginHandler = (token) => {
@@ -12,11 +13,17 @@ const AuthContextProvider = (props) => {
   const logoutHandler = () => {
     setToken(null);
   };
+  const updatedData = (data) => {
+    setRetrivedData(data);
+    console.log(data);
+  };
   const ContextValue = {
     token: token,
     isLoggedin: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
+    profileData: retrivedData,
+    data: updatedData,
   };
   return (
     <AuthContext.Provider value={ContextValue}>
