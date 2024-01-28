@@ -1,0 +1,21 @@
+.home {
+  display: flex;
+  justify-content: space-between;
+  text-decoration: underline;
+}
+.font {
+  font-style: italic;
+  margin-top: 5px;
+  color: gray;
+}
+.complete {
+  font-size: large;
+  font-style: italic;
+  margin-top: 5px;
+}
+.complete button {
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-style: italic;
+  margin-right: 5px;
+}

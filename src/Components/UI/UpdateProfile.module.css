@@ -1,0 +1,36 @@
+.profile {
+  display: flex;
+
+  margin-top: 30px;
+  margin-right: 50px;
+}
+.lab {
+  margin-top: 20px;
+  margin-left: 30px;
+}
+.space label {
+  padding: 0 30px;
+}
+.space input {
+  padding: 0 30px;
+}
+.btn {
+  padding-left: 30px;
+  margin-top: 30px;
+  margin-left: 10px;
+}
+
+.btn button {
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+.back {
+  display: flex;
+  justify-content: space-between;
+}
+.back button {
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-right: 40%;
+}
