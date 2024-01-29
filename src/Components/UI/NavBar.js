@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import classes from "./NavBar.module.css";
+import Button from "react-bootstrap/esm/Button";
+import { AuthContext } from "../Global/AuthContext";
 const NavBar = (props) => {
+  const authCtx = useContext(AuthContext);
   return (
     <div className={classes.navbar}>
       <Navbar expand="lg" className={classes.navbar}>
@@ -30,6 +33,9 @@ const NavBar = (props) => {
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
+          <Link to="/login">
+            <Button onClick={() => authCtx.logout()}>logout</Button>
+          </Link>
         </Container>
       </Navbar>
     </div>

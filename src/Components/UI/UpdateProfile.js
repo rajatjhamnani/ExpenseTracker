@@ -9,6 +9,7 @@ const UpdateProfile = (props) => {
   console.log(authCtx.token);
   const [name, setName] = useState();
   const [photoUrl, setPhotoUrl] = useState();
+
   const nameHandler = (e) => {
     console.log(e.target.value);
     setName(e.target.value);
@@ -19,12 +20,13 @@ const UpdateProfile = (props) => {
   };
 
   useEffect(() => {
+    console.log("111111111111");
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBDWVbnQ6118boUJYGBZNlr-QiJ2E9fS5o",
       {
         method: "POST",
         body: JSON.stringify({
-          idToken: authCtx.token,
+          idToken: localStorage.getItem("idToken"),
         }),
         headers: {
           "content-type": "application/json",
@@ -49,7 +51,7 @@ const UpdateProfile = (props) => {
       .catch((err) => {
         alert(err.message);
       });
-  }, []);
+  }, [authCtx.token]);
   const submitHandler = (e) => {
     e.preventDefault();
     const data = {
@@ -113,7 +115,11 @@ const UpdateProfile = (props) => {
       <div className={classes.btn}>
         <button type="submit">Update</button>
       </div>
-      <ProfileDetails data={authCtx.profileData} />
+      <Link to="/profileDetails">
+        <button>Show Data</button>
+      </Link>
+      {/* <ProfileDetails data={authCtx.profileData} /> */}
+      {console.log("2222222222")}
     </form>
   );
 };

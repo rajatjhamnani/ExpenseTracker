@@ -83,7 +83,7 @@ const Authentication = (props) => {
       })
       .then((data) => {
         console.log(data.idToken);
-        authCtx.login(data.idToken);
+        authCtx.login(data.idToken, data.email);
         {
           isLogin && navigate("/");
         }

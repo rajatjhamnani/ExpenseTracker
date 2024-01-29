@@ -11,6 +11,9 @@ const Home = (props) => {
         <Link to="/updateProfile">
           <h3>Complete your Profile</h3>
         </Link>
+        <Link to="/verifyEmail">
+          <button>Verify Email</button>
+        </Link>
       </div>
     </div>
   );

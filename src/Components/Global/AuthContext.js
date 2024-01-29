@@ -6,11 +6,15 @@ const AuthContextProvider = (props) => {
   const [retrivedData, setRetrivedData] = useState();
   const userIsLoggedIn = !!token;
 
-  const loginHandler = (token) => {
+  const loginHandler = (token, email) => {
     console.log(token);
+    localStorage.setItem("idToken", token);
+    localStorage.setItem("email", email);
     setToken(token);
   };
   const logoutHandler = () => {
+    localStorage.removeItem("idToken");
+    localStorage.removeItem("email");
     setToken(null);
   };
   const updatedData = (data) => {
