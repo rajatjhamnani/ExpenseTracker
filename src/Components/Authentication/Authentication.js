@@ -143,7 +143,7 @@ const Authentication = (props) => {
           )}
           {isLoading && <h3>sending request ....</h3>}
           {isLogin && (
-            <NavLink className={classes.lin}>
+            <NavLink to="/forgotPassword" className={classes.lin}>
               <h3>Forgot Password</h3>
             </NavLink>
           )}

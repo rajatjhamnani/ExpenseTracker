@@ -7,6 +7,7 @@ import Home from "./Components/UI/Home";
 import Product from "./Components/UI/Product";
 import UpdateProfile from "./Components/UI/UpdateProfile";
 import ProfileDetails from "./Components/UI/Profile";
+import ForgotPassword from "./Components/UI/ForgotPassword";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/updateProfile" exact Component={UpdateProfile} />
         <Route path="/profileDetails" exact Component={ProfileDetails} />
         <Route path="/verifyEmail" exact Component={VerifyEmail} />
+        <Route path="/forgotPassword" exact Component={ForgotPassword} />
         <Route path="/product" exact Component={Product} />
         <Route path="/login" exact Component={Authentication} />
       </Routes>
