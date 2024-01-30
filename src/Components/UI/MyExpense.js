@@ -26,6 +26,35 @@ const MyExpense = (props) => {
       description: description,
       category: category,
     };
+
+    fetch(
+      "https://expense-tracker-87bd8-default-rtdb.firebaseio.com/expenses.json",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          console.log("sending data request successful");
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Authentication failed";
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err.errorMessage);
+      });
+
     setData((prev) => {
       return [...prev, data];
     });
