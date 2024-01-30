@@ -9,6 +9,7 @@ import Button from "react-bootstrap/esm/Button";
 import { AuthContext } from "../Global/AuthContext";
 const NavBar = (props) => {
   const authCtx = useContext(AuthContext);
+  const isLogin = authCtx.isLoggedin;
   return (
     <div className={classes.navbar}>
       <Navbar expand="lg" className={classes.navbar}>
@@ -16,26 +17,37 @@ const NavBar = (props) => {
           <Navbar.Brand as={NavLink} to="/">
             Expense Tracker
           </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={NavLink} to="/">
-                Home
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/product">
-                Products
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/">
-                About Us
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/login">
-                Login
-              </Nav.Link>
+              {isLogin && (
+                <Nav.Link as={NavLink} to="/">
+                  Home
+                </Nav.Link>
+              )}
+              {isLogin && (
+                <Nav.Link as={NavLink} to="/myExpense">
+                  My Expense
+                </Nav.Link>
+              )}
+              {isLogin && (
+                <Nav.Link as={NavLink} to="/">
+                  About Us
+                </Nav.Link>
+              )}
+              {!isLogin && (
+                <Nav.Link as={NavLink} to="/login">
+                  Login
+                </Nav.Link>
+              )}
             </Nav>
           </Navbar.Collapse>
-          <Link to="/login">
-            <Button onClick={() => authCtx.logout()}>logout</Button>
-          </Link>
+          {isLogin && (
+            <Link to="/login">
+              <Button onClick={() => authCtx.logout()}>logout</Button>
+            </Link>
+          )}
         </Container>
       </Navbar>
     </div>

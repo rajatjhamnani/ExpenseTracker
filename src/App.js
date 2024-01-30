@@ -4,7 +4,7 @@ import Authentication from "./Components/Authentication/Authentication";
 import VerifyEmail from "./Components/UI/VerifyEmail";
 import NavBar from "./Components/UI/NavBar";
 import Home from "./Components/UI/Home";
-import Product from "./Components/UI/Product";
+import MyExpense from "./Components/UI/MyExpense";
 import UpdateProfile from "./Components/UI/UpdateProfile";
 import ProfileDetails from "./Components/UI/Profile";
 import ForgotPassword from "./Components/UI/ForgotPassword";
@@ -19,7 +19,7 @@ function App() {
         <Route path="/profileDetails" exact Component={ProfileDetails} />
         <Route path="/verifyEmail" exact Component={VerifyEmail} />
         <Route path="/forgotPassword" exact Component={ForgotPassword} />
-        <Route path="/product" exact Component={Product} />
+        <Route path="/myExpense" exact Component={MyExpense} />
         <Route path="/login" exact Component={Authentication} />
       </Routes>
     </div>

@@ -1,0 +1,16 @@
+.start {
+  border: 3px solid lightgray;
+  margin-top: 20px;
+  width: 50%;
+  margin-left: 25%;
+  border-radius: 20px;
+  background-color: beige;
+  text-align: center;
+}
+.expense {
+  display: flex;
+  justify-content: center;
+}
+.expense p {
+  margin-right: 20px;
+}
