@@ -14,3 +14,11 @@
 .expense p {
   margin-right: 20px;
 }
+.expense button {
+  border: 1px solid grey;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+}
