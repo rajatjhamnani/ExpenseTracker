@@ -7,61 +7,57 @@ const MyExpense = (props) => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [data, setData] = useState([]);
-  const moneyChabgeHandler = (e) => {
-    console.log(e.target.value);
+
+  const moneyChangeHandler = (e) => {
     setMoney(e.target.value);
   };
-  const descriptionHandlerr = (e) => {
-    console.log(e.target.value);
+
+  const descriptionHandler = (e) => {
     setDescription(e.target.value);
   };
+
   const categoryHandler = (e) => {
-    console.log(e.target.value);
     setCategory(e.target.value);
   };
-  const submitHandler = (e) => {
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    const data = {
+
+    const expenseData = {
       value: money,
       description: description,
       category: category,
     };
 
-    fetch(
-      "https://expense-tracker-87bd8-default-rtdb.firebaseio.com/expenses.json",
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((res) => {
-        if (res.ok) {
-          console.log("sending data request successful");
-          return res.json();
-        } else {
-          return res.json().then((data) => {
-            let errorMessage = "Authentication failed";
-            throw new Error(errorMessage);
-          });
+    try {
+      const response = await fetch(
+        "https://expense-tracker-87bd8-default-rtdb.firebaseio.com/expenses.json",
+        {
+          method: "POST",
+          body: JSON.stringify(expenseData),
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err.errorMessage);
-      });
+      );
 
-    setData((prev) => {
-      return [...prev, data];
-    });
-    setMoney("");
-    setDescription("");
-    setCategory("select");
+      if (response.ok) {
+        console.log("Sending data request successful");
+        const responseData = await response.json();
+        console.log(responseData);
+        setData((prev) => [...prev, expenseData]);
+        setMoney("");
+        setDescription("");
+        setCategory("select");
+      } else {
+        const errorData = await response.json();
+        console.log("Error:", errorData);
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   };
+
   return (
     <>
       <form onSubmit={submitHandler} className={classes.form}>
@@ -73,7 +69,7 @@ const MyExpense = (props) => {
               type="number"
               id="money"
               min={0}
-              onChange={moneyChabgeHandler}
+              onChange={moneyChangeHandler}
               value={money}
               required
             />
@@ -83,13 +79,13 @@ const MyExpense = (props) => {
             <input
               type="text"
               id="description"
-              onChange={descriptionHandlerr}
+              onChange={descriptionHandler}
               value={description}
               required
             />
           </div>
           <div className={classes.money}>
-            <label htmlFor="categort">Category</label>
+            <label htmlFor="category">Category</label>
             <select
               id="category"
               onChange={categoryHandler}
@@ -99,7 +95,7 @@ const MyExpense = (props) => {
               <option>select</option>
               <option>Food</option>
               <option>Travelling</option>
-              <option>school Expenses</option>
+              <option>School Expenses</option>
               <option>Medicine</option>
               <option>Entertainment</option>
               <option>Fashion</option>
@@ -112,4 +108,5 @@ const MyExpense = (props) => {
     </>
   );
 };
+
 export default MyExpense;

@@ -3,10 +3,15 @@ import classes from "./UpdateProfile.module.css";
 import { Link, json, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Global/AuthContext";
 import ProfileDetails from "./Profile";
+import { useDispatch, useSelector } from "react-redux";
+import { profileData } from "../../Store/ProfileDataRedux";
 const UpdateProfile = (props) => {
   const navigate = useNavigate();
-  const authCtx = useContext(AuthContext);
-  console.log(authCtx.token);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
+  console.log("token", token);
+  // const authCtx = useContext(AuthContext);
+  // console.log(authCtx.token);
   const [name, setName] = useState();
   const [photoUrl, setPhotoUrl] = useState();
 
@@ -46,12 +51,12 @@ const UpdateProfile = (props) => {
       })
       .then((data) => {
         console.log(data.users);
-        authCtx.data(data.users);
+        dispatch(profileData(data.users));
       })
       .catch((err) => {
         alert(err.message);
       });
-  }, [authCtx.token]);
+  }, [token]);
   const submitHandler = (e) => {
     e.preventDefault();
     const data = {
@@ -64,7 +69,7 @@ const UpdateProfile = (props) => {
       {
         method: "POST",
         body: JSON.stringify({
-          idToken: authCtx.token,
+          idToken: token,
           displayName: data.fullName,
           photoUrl: data.url,
           returnSecureToken: true,

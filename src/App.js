@@ -18,6 +18,7 @@ function App() {
         <Route path="/updateProfile" exact Component={UpdateProfile} />
         <Route path="/profileDetails" exact Component={ProfileDetails} />
         <Route path="/verifyEmail" exact Component={VerifyEmail} />
+
         <Route path="/forgotPassword" exact Component={ForgotPassword} />
         <Route path="/myExpense" exact Component={MyExpense} />
         <Route path="/login" exact Component={Authentication} />

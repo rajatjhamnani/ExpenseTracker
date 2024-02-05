@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../Global/AuthContext";
+import { useSelector } from "react-redux";
 
 const ProfileDetails = (props) => {
-  console.log(props.data);
-  const authCtx = useContext(AuthContext);
+  const data = useSelector((state) => state.profile.userData);
+  console.log(data);
   return (
     <>
       <h1>Profiles</h1>
 
-      {authCtx.profileData.map((profile, index) => (
+      {data.map((profile, index) => (
         <div key={index}>
           <p>Provider ID: {profile.providerId}</p>
           <p>Display Name: {profile.displayName}</p>

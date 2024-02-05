@@ -1,10 +1,14 @@
 import React, { useContext, useState } from "react";
+import { useDispatch } from "react-redux";
 import classes from "./Authentication.module.css";
 import { Link, NavLink, json, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { AuthContext } from "../Global/AuthContext";
+import { login } from "../../Store/AuthRedux";
 const Authentication = (props) => {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -12,7 +16,7 @@ const Authentication = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const authCtx = useContext(AuthContext);
+  //const authCtx = useContext(AuthContext);
 
   const buttonToggler = () => {
     setIsLogin((prev) => {
@@ -83,7 +87,9 @@ const Authentication = (props) => {
       })
       .then((data) => {
         console.log(data.idToken);
-        authCtx.login(data.idToken, data.email);
+        //authCtx.login(data.idToken, data.email);
+        dispatch(login([data.idToken, data.email]));
+
         {
           isLogin && navigate("/");
         }

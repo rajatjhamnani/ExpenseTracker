@@ -2,14 +2,17 @@ import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import classes from "./NavBar.module.css";
 import Button from "react-bootstrap/esm/Button";
 import { AuthContext } from "../Global/AuthContext";
+import { logout } from "../../Store/AuthRedux";
 const NavBar = (props) => {
-  const authCtx = useContext(AuthContext);
-  const isLogin = authCtx.isLoggedin;
+  const dispatch = useDispatch();
+  //const authCtx = useContext(AuthContext);
+  //const isLogin = authCtx.isLoggedin;
+  const isLogin = useSelector((state) => state.auth.userIsLoggedIn);
   return (
     <div className={classes.navbar}>
       <Navbar expand="lg" className={classes.navbar}>
@@ -45,7 +48,7 @@ const NavBar = (props) => {
           </Navbar.Collapse>
           {isLogin && (
             <Link to="/login">
-              <Button onClick={() => authCtx.logout()}>logout</Button>
+              <Button onClick={() => dispatch(logout())}>logout</Button>
             </Link>
           )}
         </Container>

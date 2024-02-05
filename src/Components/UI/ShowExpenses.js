@@ -34,7 +34,7 @@ const ShowExpenses = (props) => {
     };
 
     fetchData();
-  }, []);
+  }, [props.expense]);
 
   const handleDelete = async (id) => {
     try {
@@ -121,7 +121,7 @@ const ShowExpenses = (props) => {
                   }
                 />
                 <input
-                  type="text"
+                  type="number"
                   value={editingExpense.value}
                   onChange={(e) =>
                     setEditingExpense({
