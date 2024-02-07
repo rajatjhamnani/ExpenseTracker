@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import classes from "./MyExpense.module.css";
 import ShowExpenses from "./ShowExpenses";
+import { useSelector } from "react-redux";
 
 const MyExpense = (props) => {
+  const theme = useSelector((state) => state.profile.darkTheme);
+  const token = useSelector((state) => state.auth.token);
+  const email = localStorage.getItem("email");
+
   const [money, setMoney] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+
   const [data, setData] = useState([]);
 
   const moneyChangeHandler = (e) => {
@@ -31,7 +37,7 @@ const MyExpense = (props) => {
 
     try {
       const response = await fetch(
-        "https://expense-tracker-87bd8-default-rtdb.firebaseio.com/expenses.json",
+        `https://expense-tracker-87bd8-default-rtdb.firebaseio.com/expenses.json`,
         {
           method: "POST",
           body: JSON.stringify(expenseData),
@@ -60,7 +66,10 @@ const MyExpense = (props) => {
 
   return (
     <>
-      <form onSubmit={submitHandler} className={classes.form}>
+      <form
+        onSubmit={submitHandler}
+        className={theme ? classes.form : classes.darkform}
+      >
         <h1>My Expense Tracker</h1>
         <div>
           <div className={classes.money}>

@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -10,12 +9,16 @@ import { AuthContext } from "../Global/AuthContext";
 import { logout } from "../../Store/AuthRedux";
 const NavBar = (props) => {
   const dispatch = useDispatch();
-  //const authCtx = useContext(AuthContext);
-  //const isLogin = authCtx.isLoggedin;
+  const theme = useSelector((state) => state.profile.darkTheme);
+  console.log(theme);
+
   const isLogin = useSelector((state) => state.auth.userIsLoggedIn);
   return (
-    <div className={classes.navbar}>
-      <Navbar expand="lg" className={classes.navbar}>
+    <div className={theme ? classes.navbar : classes.darknavbar}>
+      <Navbar
+        expand="lg"
+        className={theme ? classes.navbar : classes.darknavbar}
+      >
         <Container>
           <Navbar.Brand as={NavLink} to="/">
             Expense Tracker

@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from "react";
 import classes from "./ShowExpenses.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { changeTheme } from "../../Store/ProfileDataRedux";
 
 const ShowExpenses = (props) => {
   const [fetchedData, setFetchedData] = useState([]);
   const [editingExpense, setEditingExpense] = useState(null);
+  const [darkTheme, setDarkTheme] = useState(false);
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.profile.darkTheme);
+  const token = useSelector((state) => state.auth.token);
+  const email = localStorage.getItem("email");
+
+  const changeThemeHandler = () => {
+    setDarkTheme((prev) => !prev);
+    dispatch(changeTheme(darkTheme));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://expense-tracker-87bd8-default-rtdb.firebaseio.com/expenses.json",
+          `https://expense-tracker-87bd8-default-rtdb.firebaseio.com/expenses.json`,
           {
             method: "GET",
             headers: {
@@ -96,58 +108,115 @@ const ShowExpenses = (props) => {
     }
   };
 
+  const calculateTotalExpense = () => {
+    return fetchedData.reduce(
+      (total, expense) => total + parseFloat(expense.value),
+      0
+    );
+  };
+  const downloadCSV = () => {
+    const csvContent =
+      "Description,Price,Category\n" +
+      fetchedData
+        .map((item) => `${item.description},${item.value},${item.category}`)
+        .join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute("download", "expenses.csv");
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+  };
+
   return (
     <>
-      <div className={classes.start}>
+      <div className={theme ? classes.start : classes.darkStart}>
         <h3>My Expenses</h3>
-        {fetchedData.map((item) => (
-          <div key={item.id} className={classes.expense}>
-            <p>Description: {item.description}</p>
-            <p>Price: ${item.value}</p>
-            <p>Category: {item.category}</p>
-            <button onClick={() => handleDelete(item.id)}>Delete</button>
-            <button onClick={() => handleEdit(item.id)}>Edit Expense</button>
+        <div className={classes.download}>
+          <button onClick={downloadCSV}>Download</button>
+        </div>
 
-            {editingExpense && editingExpense.id === item.id && (
-              <div>
-                <input
-                  type="text"
-                  value={editingExpense.description}
-                  onChange={(e) =>
-                    setEditingExpense({
-                      ...editingExpense,
-                      description: e.target.value,
-                    })
-                  }
-                />
-                <input
-                  type="number"
-                  value={editingExpense.value}
-                  onChange={(e) =>
-                    setEditingExpense({
-                      ...editingExpense,
-                      value: e.target.value,
-                    })
-                  }
-                />
-                <input
-                  type="text"
-                  value={editingExpense.category}
-                  onChange={(e) =>
-                    setEditingExpense({
-                      ...editingExpense,
-                      category: e.target.value,
-                    })
-                  }
-                />
-                <button onClick={() => handleSaveEdit(editingExpense)}>
-                  Save
-                </button>
-                <button onClick={handleCancelEdit}>Cancel</button>
-              </div>
-            )}
+        <table className={classes.expenseTable}>
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Category</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fetchedData.map((item) => (
+              <tr key={item.id}>
+                <td>{item.description}</td>
+                <td>${item.value}</td>
+                <td>{item.category}</td>
+                <td>
+                  <button onClick={() => handleDelete(item.id)}>Delete</button>
+                  <button onClick={() => handleEdit(item.id)}>
+                    Edit Expense
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {editingExpense && (
+          <div>
+            <input
+              type="text"
+              value={editingExpense.description}
+              onChange={(e) =>
+                setEditingExpense({
+                  ...editingExpense,
+                  description: e.target.value,
+                })
+              }
+            />
+            <input
+              type="number"
+              value={editingExpense.value}
+              onChange={(e) =>
+                setEditingExpense({
+                  ...editingExpense,
+                  value: e.target.value,
+                })
+              }
+            />
+            <input
+              type="text"
+              value={editingExpense.category}
+              onChange={(e) =>
+                setEditingExpense({
+                  ...editingExpense,
+                  category: e.target.value,
+                })
+              }
+            />
+            <button onClick={() => handleSaveEdit(editingExpense)}>Save</button>
+            <button onClick={handleCancelEdit}>Cancel</button>
           </div>
-        ))}
+        )}
+
+        <div className={classes.totalExpenses}>
+          <p>
+            <b>Total Expenses = ${calculateTotalExpense().toFixed(2)}</b>
+          </p>
+        </div>
+        {calculateTotalExpense() > 1000 ? (
+          <div className={classes.rest}>
+            <button onClick={changeThemeHandler}>Activate Premium</button>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

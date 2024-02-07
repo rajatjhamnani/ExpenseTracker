@@ -7,18 +7,80 @@
   background-color: beige;
   text-align: center;
 }
-.expense {
-  display: flex;
-  justify-content: center;
+
+.darkStart {
+  border: 3px solid black;
+  margin-top: 20px;
+  width: 50%;
+  margin-left: 25%;
+  border-radius: 20px;
+  background-color: darkgray;
+  text-align: center;
 }
-.expense p {
-  margin-right: 20px;
+.download {
+  margin-left: 80%;
+  margin-bottom: 20px;
 }
-.expense button {
-  border: 1px solid grey;
+.download button {
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.expenseTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.expenseTable th,
+.expenseTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.expenseTable td button {
   background-color: black;
   color: white;
+  margin: 5px;
+  border: 1px solid slategray;
+  border-radius: 10px;
+}
+button {
+  background-color: black;
+  color: white;
+  margin: 5px;
+  border: 1px solid slategray;
+  border-radius: 10px;
+}
+
+.expenseTable th {
+  background-color: black;
+  color: white;
+}
+
+.expenseTable tr {
+  background-color: #f2f2f2;
+}
+
+.expenseTable tr:hover {
+  background-color: #ddd;
+}
+
+.download button,
+.rest button {
+  background-color: goldenrod;
+  color: white;
+  padding: 10px;
+  border: none;
   border-radius: 5px;
-  margin-bottom: 10px;
-  padding: 0 10px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.totalExpenses {
+  margin-top: 20px;
+}
+
+.rest {
+  margin-top: 20px;
 }
