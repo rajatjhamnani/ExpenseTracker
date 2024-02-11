@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../Global/AuthContext";
+import React from "react";
+
 import { useSelector } from "react-redux";
 
 const ProfileDetails = (props) => {
