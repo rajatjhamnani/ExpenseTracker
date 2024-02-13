@@ -31,7 +31,7 @@ const UpdateProfile = (props) => {
       {
         method: "POST",
         body: JSON.stringify({
-          idToken: localStorage.getItem("idToken"),
+          idToken: localStorage.getItem("authToken"),
         }),
         headers: {
           "content-type": "application/json",

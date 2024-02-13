@@ -20,7 +20,7 @@ const NavBar = (props) => {
         className={theme ? classes.navbar : classes.darknavbar}
       >
         <Container>
-          <Navbar.Brand as={NavLink} to="/">
+          <Navbar.Brand as={NavLink} to="/front">
             Expense Tracker
           </Navbar.Brand>
 

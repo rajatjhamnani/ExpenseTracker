@@ -7,6 +7,7 @@ const MyExpense = (props) => {
   const theme = useSelector((state) => state.profile.darkTheme);
   const token = useSelector((state) => state.auth.token);
   const email = localStorage.getItem("email");
+  const newEmail = email.replace(/[^\w\s]/gi, "");
 
   const [money, setMoney] = useState("");
   const [description, setDescription] = useState("");
@@ -37,7 +38,7 @@ const MyExpense = (props) => {
 
     try {
       const response = await fetch(
-        `https://expense-tracker-87bd8-default-rtdb.firebaseio.com/expenses.json`,
+        `https://expense-tracker-87bd8-default-rtdb.firebaseio.com/${newEmail}.json`,
         {
           method: "POST",
           body: JSON.stringify(expenseData),

@@ -41,7 +41,13 @@ const ForgotPassword = (props) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form
+      onSubmit={submitHandler}
+      style={{
+        textAlign: "center",
+        marginTop: "15%",
+      }}
+    >
       <label htmlFor="email">Enter your email</label>
       <input type="email" id="email" onChange={emailHandler} />
       <button type="submit">Forgot Password</button>

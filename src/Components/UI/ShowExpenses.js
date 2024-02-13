@@ -11,6 +11,7 @@ const ShowExpenses = (props) => {
   const theme = useSelector((state) => state.profile.darkTheme);
   const token = useSelector((state) => state.auth.token);
   const email = localStorage.getItem("email");
+  const newEmail = email.replace(/[^\w\s]/gi, "");
 
   const changeThemeHandler = () => {
     setDarkTheme((prev) => !prev);
@@ -21,7 +22,7 @@ const ShowExpenses = (props) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://expense-tracker-87bd8-default-rtdb.firebaseio.com/expenses.json`,
+          `https://expense-tracker-87bd8-default-rtdb.firebaseio.com/${newEmail}.json`,
           {
             method: "GET",
             headers: {
@@ -51,7 +52,7 @@ const ShowExpenses = (props) => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `https://expense-tracker-87bd8-default-rtdb.firebaseio.com/expenses/${id}.json`,
+        `https://expense-tracker-87bd8-default-rtdb.firebaseio.com/${newEmail}/${id}.json`,
         {
           method: "DELETE",
           headers: {
@@ -81,7 +82,7 @@ const ShowExpenses = (props) => {
   const handleSaveEdit = async (editedExpense) => {
     try {
       const response = await fetch(
-        `https://expense-tracker-87bd8-default-rtdb.firebaseio.com/expenses/${editedExpense.id}.json`,
+        `https://expense-tracker-87bd8-default-rtdb.firebaseio.com/${newEmail}/${editedExpense.id}.json`,
         {
           method: "PATCH",
           headers: {

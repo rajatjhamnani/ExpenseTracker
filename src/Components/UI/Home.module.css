@@ -19,3 +19,16 @@
   font-style: italic;
   margin-right: 5px;
 }
+.never {
+  text-align: center;
+  margin-top: 2%;
+  font-size: xx-large;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-right: 25%;
+  margin-left: 25%;
+  background-color: beige;
+}
+.image {
+  text-align: center;
+}

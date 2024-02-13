@@ -8,6 +8,7 @@ import MyExpense from "./Components/UI/MyExpense";
 import UpdateProfile from "./Components/UI/UpdateProfile";
 import ProfileDetails from "./Components/UI/Profile";
 import ForgotPassword from "./Components/UI/ForgotPassword";
+import FrontPage from "./Components/UI/FrontPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <NavBar></NavBar>
       <Routes>
         <Route path="/" exact Component={Home} />
+        <Route path="/front" exact Component={FrontPage} />
         <Route path="/updateProfile" exact Component={UpdateProfile} />
         <Route path="/profileDetails" exact Component={ProfileDetails} />
         <Route path="/verifyEmail" exact Component={VerifyEmail} />
