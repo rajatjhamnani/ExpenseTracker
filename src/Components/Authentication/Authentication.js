@@ -73,6 +73,7 @@ const Authentication = (props) => {
         setIsLoading(false);
         if (res.ok) {
           console.log("Request Successful");
+          navigate("/");
           return res.json();
         } else {
           return res.json().then((data) => {
@@ -90,9 +91,9 @@ const Authentication = (props) => {
         //authCtx.login(data.idToken, data.email);
         dispatch(login([data.idToken, data.email]));
 
-        {
-          isLogin && navigate("/");
-        }
+        // {
+        //   isLogin && navigate("/");
+        // }
       })
       .catch((error) => {
         alert(error.message);

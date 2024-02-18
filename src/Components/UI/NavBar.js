@@ -37,11 +37,7 @@ const NavBar = (props) => {
                   My Expense
                 </Nav.Link>
               )}
-              {isLogin && (
-                <Nav.Link as={NavLink} to="/">
-                  About Us
-                </Nav.Link>
-              )}
+
               {!isLogin && (
                 <Nav.Link as={NavLink} to="/login">
                   Login

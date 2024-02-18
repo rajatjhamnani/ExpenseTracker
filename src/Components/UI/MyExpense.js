@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const MyExpense = (props) => {
   const theme = useSelector((state) => state.profile.darkTheme);
-  const token = useSelector((state) => state.auth.token);
+
   const email = localStorage.getItem("email");
   const newEmail = email.replace(/[^\w\s]/gi, "");
 
