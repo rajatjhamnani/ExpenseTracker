@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./App.css";
 import Authentication from "./Components/Authentication/Authentication";
 import VerifyEmail from "./Components/UI/VerifyEmail";
@@ -11,19 +12,26 @@ import ForgotPassword from "./Components/UI/ForgotPassword";
 import FrontPage from "./Components/UI/FrontPage";
 
 function App() {
+  const isLogin = useSelector((state) => state.auth.userIsLoggedIn);
   return (
     <div>
       <NavBar></NavBar>
       <Routes>
-        <Route path="/" exact Component={Home} />
+        {isLogin && <Route path="/" exact Component={Home} />}
         <Route path="/front" exact Component={FrontPage} />
-        <Route path="/updateProfile" exact Component={UpdateProfile} />
-        <Route path="/profileDetails" exact Component={ProfileDetails} />
-        <Route path="/verifyEmail" exact Component={VerifyEmail} />
+        {isLogin && (
+          <Route path="/updateProfile" exact Component={UpdateProfile} />
+        )}
+        {isLogin && (
+          <Route path="/profileDetails" exact Component={ProfileDetails} />
+        )}
+        {isLogin && <Route path="/verifyEmail" exact Component={VerifyEmail} />}
 
-        <Route path="/forgotPassword" exact Component={ForgotPassword} />
+        {!isLogin && (
+          <Route path="/forgotPassword" exact Component={ForgotPassword} />
+        )}
         <Route path="/myExpense" exact Component={MyExpense} />
-        <Route path="/login" exact Component={Authentication} />
+        {!isLogin && <Route path="/login" exact Component={Authentication} />}
       </Routes>
     </div>
   );
